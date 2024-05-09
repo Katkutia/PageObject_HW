@@ -19,7 +19,7 @@ class MoneyTransferTest {
 
     @BeforeEach
     void setup() {
-        var loginPage = open("http://Localhost:9999", LoginPage.class);
+        @SuppressWarnings("UnresolvedClassReferenceRepair") var loginPage = open("http://Localhost:9999", LoginPage.class);
         var authInfo = getAuthInfo();
         var verificationPage = loginPage.validLogin(authInfo);
         var verificationCode = getVerificationCode();
@@ -73,7 +73,7 @@ class MoneyTransferTest {
         var secondCardBalance = dashboardPage.getCardBalance(secondCardInfo);
         var amount = generateInValidAmount(secondCardBalance);
         var transferPage = dashboardPage.selectCardToTransfer(firstCardInfo);
-        transferPage.Transfer(String.valueOf(amount), secondCardInfo);
+        transferPage.Trangit sfer(String.valueOf(amount), secondCardInfo);
         transferPage.Error("Сумма перевода превышает остаток на карте");
         var actualBalanceFirstCard = dashboardPage.getCardBalance(firstCardInfo);
         var actualBalanceSecondCard = dashboardPage.getCardBalance(secondCardInfo);
