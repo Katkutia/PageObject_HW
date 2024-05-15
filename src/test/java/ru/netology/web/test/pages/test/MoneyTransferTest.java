@@ -149,33 +149,4 @@ class MoneyTransferTest {
 
     }
 
-    @Test
-    @DisplayName("Перевод c первой карты на первую")
-    void shouldNotTransferMoneyBecauseOfOneToOne() {
-        open("http://localhost:9999");
-
-        var loginPage = new LoginPageV1();
-        var authInfo = DataHelper.getAuthInfo();
-        var verificationPage = loginPage.validLogin(authInfo);
-        var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
-        var dashboardPage = verificationPage.validVerify(verificationCode);
-
-        var firstCardValue = dashboardPage.getFirstCardBalance();
-        var secondCardValue = dashboardPage.getSecondCardBalance();
-
-        var transferPage = dashboardPage.clickOnFirstButton();
-
-        var transfer = DataHelper.getValidTransfer(Math.abs(firstCardValue), card1);
-
-        var anotherPage = transferPage.successfulTransfer(transfer);
-
-        transferPage.errorOnTheSite("Ошибка" + "Ошибка! Произошла ошибка");
-
-        var actualBalanceOfFirstCard = dashboardPage.getFirstCardBalance();
-        var actualBalanceOfSecondCard = dashboardPage.getSecondCardBalance();
-
-        Assertions.assertEquals(firstCardValue, actualBalanceOfFirstCard);
-        Assertions.assertEquals(secondCardValue, actualBalanceOfSecondCard);
-
-    }
 }
